@@ -20,7 +20,7 @@ def common_countries(ip_request_dict):
     print('\n')
     print(f'- - - Top {n} most common countries - - -')
     for agent in c.most_common(n):
-        print(f'Requests: {agent[1]}\t Country: {agent[0]}')
+        print(f'{agent[1]}\tunique ip\'s from {agent[0]}')
 
 
 def common_user_agent(ip_request_dict):
