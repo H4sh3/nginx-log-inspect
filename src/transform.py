@@ -1,4 +1,5 @@
 import re
+from socket import IPV6_CHECKSUM
 
 from src.geo import IpCountryResolver
 
@@ -23,25 +24,27 @@ def parse_log_list(log_list):
 
 
 def add_countries_to_messages(log_list, geolocate, verbose=False):
-    ipCountryResolver = IpCountryResolver()
+    
+    unique_ips = set([m["ipaddress"] for m in log_list])
+
+    ip_country_resolver = IpCountryResolver()
+    # resolve country of ip's
+    ip_country_resolver.resolve_ips(unique_ips)
 
     extended_log_list = []
 
-    len_log_list = len(log_list)
-    cnt = 0
     for message in log_list:
         ip = message["ipaddress"]
 
         if geolocate:
-            message["country"] = ipCountryResolver.country_of_ip(ip)
+            message["country"] = ip_country_resolver.country_of_ip(ip)
         else:
             message["country"] = ''
 
         extended_log_list.append(message)
 
-        cnt += 1
-        if verbose:
-            print(f'{cnt} / {len_log_list}')
+    # save onces after all ip country relations have been handled
+    ip_country_resolver.save_ip_country_dict()
 
     return extended_log_list
 
