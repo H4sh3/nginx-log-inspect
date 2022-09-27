@@ -26,3 +26,9 @@ def status_code_to_text(code):
         return responses[code]
     except:
         return "Unknown status code"
+
+def chunks(l, n):
+     
+    # looping till length l
+    for i in range(0, len(l), n):
+        yield l[i:i + n]
