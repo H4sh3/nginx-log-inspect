@@ -116,3 +116,37 @@ def url_requested(ip_request_dict, url,shorten_useragents):
 
                 print(f'{ip} {country} {url} {agent}...')
                 break
+
+
+
+def unique_url_counts(ip_request_dict, n=50):
+    print('\n')
+    urls = []
+
+    for ip in ip_request_dict:
+        for message in ip_request_dict[ip]:
+            urls.append(message["url"])
+
+    c = Counter(urls)
+    print('\n')
+    print(
+        f'- - - Top {n} most common requested urls. Overall {len(c.items())}- - -')
+    for value in c.most_common(n):
+        print(f'Requests:{value[1]}\tUrl: {value[0]}')
+    
+
+def ip_by_countries(ip_request_dict):
+    country_dict = {}
+
+    for ip in ip_request_dict:
+        country = ip_request_dict[ip][0]["country"]
+        if country in country_dict:
+            country_dict[country].append(ip_request_dict[ip])
+        else:
+            country_dict[country] = [ip_request_dict[ip]]
+    
+    for country in country_dict:
+        print(country)
+        for msg_arr in country_dict[country]:
+            print(f'{msg_arr[0]["ipaddress"]} Entries: {len(msg_arr)}')
+        print('-'*10)
