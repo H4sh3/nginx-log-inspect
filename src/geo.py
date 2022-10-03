@@ -36,7 +36,10 @@ class IpCountryResolver:
             json_response = self.batch_ips(ips)
             # extend dict with new ip countries
             for entry in json_response:
-                self.ip_country_dict[entry["query"]] = entry["country"]
+                if entry["status"] =="success":
+                    self.ip_country_dict[entry["query"]] = entry["country"]
+                else:
+                    self.ip_country_dict[entry["query"]] = "no data"
 
 
     def batch_ips(self,ips):
@@ -63,5 +66,5 @@ class IpCountryResolver:
         if ip in self.ip_country_dict:
             return self.ip_country_dict[ip]
         else:
-            raise("Some ip -> country was not resolved!")
+            print("Some ip -> country was not resolved!")
 

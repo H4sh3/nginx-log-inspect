@@ -3,9 +3,12 @@ import src.transform as Transform
 import src.extract as Extract
 import src.statistics as Statistics
 from src.etc import load_data_dict, save_data_dict
+from time import sleep
 
 # Set this to True to resolve country of each ip
 GET_COUNTRIES = True
+
+# Set this to the folder with the access.log or access.log.gz files
 data_dir = Path('data')
 
 
@@ -19,6 +22,7 @@ def extract_and_transform(data_dir):
     log_list = Extract.get_log_list(data_dir)
     log_list = [v for v in Transform.parse_log_list(log_list)]
     log_list = Transform.add_countries_to_messages(log_list, GET_COUNTRIES, verbose=True)
+    sleep(2)
     ip_log_messages_dict = Transform.to_ip_log_messages_dict(log_list)
     return ip_log_messages_dict
 

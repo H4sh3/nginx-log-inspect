@@ -29,6 +29,7 @@ def add_countries_to_messages(log_list, geolocate, verbose=False):
 
     ip_country_resolver = IpCountryResolver()
     # resolve country of ip's
+    print(f"Looking up {len(unique_ips)} unique ips")
     ip_country_resolver.resolve_ips(unique_ips)
 
     extended_log_list = []
