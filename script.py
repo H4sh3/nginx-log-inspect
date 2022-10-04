@@ -27,8 +27,8 @@ def extract_and_transform(data_dir):
     return ip_log_messages_dict
 
 
-# after running extract_and_transofrm once the data is stored in,
-# we can use the preprocessed data from the json file
+# extract_and_transform s aves the output in a json file
+# this data will be reused for statistic operations
 ip_log_messages_dict = load_data_dict(data_dir)
 if ip_log_messages_dict is None:
     ip_log_messages_dict = extract_and_transform(data_dir)

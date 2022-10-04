@@ -3,10 +3,8 @@ Small python project that parses the access.log.*.gz files and prints some infor
 
 # Start
 
-Geolocating the country of an IP is deactivated by default because it takes some time to run.
-
 ### Step 1:
-Copy access.log* files in the data folder.
+Copy nginx access.log* files in the data folder.
 
 ### Step 2:
 Run the script with `python3 script.py`, depending on the size of the log files this might take some time.
